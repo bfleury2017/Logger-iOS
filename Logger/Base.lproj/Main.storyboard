@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Logger" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="v7N-ig-KoI">
+                                <rect key="frame" x="14" y="69" width="560" height="326"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="fKv-1I-aga"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="9QV-FZ-qfT"/>
+                                </connections>
+                            </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AZN-cS-6TD">
+                                <rect key="frame" x="14" y="506" width="100" height="74"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="qyE-vv-6zj"/>
+                                </constraints>
+                                <state key="normal" backgroundImage="Start"/>
+                                <connections>
+                                    <action selector="start:" destination="BYZ-38-t0r" eventType="touchUpInside" id="YwG-aC-rjR"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dgv-IL-OF9">
+                                <rect key="frame" x="474" y="506" width="100" height="74"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="f72-xC-VAy"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <state key="normal" backgroundImage="Stop"/>
+                                <connections>
+                                    <action selector="stop:" destination="BYZ-38-t0r" eventType="touchUpInside" id="GRK-4w-08z"/>
+                                </connections>
+                            </button>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Jxf-QQ-Cah">
+                                <rect key="frame" x="14" y="445" width="51" height="31"/>
+                                <connections>
+                                    <action selector="toggleClear:" destination="BYZ-38-t0r" eventType="valueChanged" id="FI8-Cq-uu2"/>
+                                </connections>
+                            </switch>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Clear" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zay-Z2-eFh">
+                                <rect key="frame" x="14" y="410" width="42" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="42" id="guO-br-6F0"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Log entries" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hpE-R5-T30">
+                                <rect key="frame" x="227" y="39" width="134" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="134" id="3p9-ll-vKM"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="AZN-cS-6TD" firstAttribute="top" secondItem="Jxf-QQ-Cah" secondAttribute="bottom" constant="30" id="27l-ql-V6O"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="AZN-cS-6TD" secondAttribute="bottom" constant="20" id="3s3-yi-boV"/>
+                            <constraint firstItem="Jxf-QQ-Cah" firstAttribute="leading" secondItem="Zay-Z2-eFh" secondAttribute="leading" id="7sa-Vh-R4N"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="v7N-ig-KoI" secondAttribute="trailing" constant="6" id="HqL-b5-4ab"/>
+                            <constraint firstItem="v7N-ig-KoI" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-6" id="Oc5-rT-Ozf"/>
+                            <constraint firstItem="Zay-Z2-eFh" firstAttribute="leading" secondItem="v7N-ig-KoI" secondAttribute="leading" id="QDy-KN-8Yb"/>
+                            <constraint firstItem="AZN-cS-6TD" firstAttribute="leading" secondItem="Jxf-QQ-Cah" secondAttribute="leading" id="S0w-F1-Ibs"/>
+                            <constraint firstItem="dgv-IL-OF9" firstAttribute="trailing" secondItem="v7N-ig-KoI" secondAttribute="trailing" id="SsL-De-F63"/>
+                            <constraint firstItem="Zay-Z2-eFh" firstAttribute="top" secondItem="v7N-ig-KoI" secondAttribute="bottom" constant="15" id="UG5-Zr-0Go"/>
+                            <constraint firstItem="v7N-ig-KoI" firstAttribute="top" secondItem="hpE-R5-T30" secondAttribute="bottom" constant="9" id="Yf5-cV-vts"/>
+                            <constraint firstItem="AZN-cS-6TD" firstAttribute="top" secondItem="dgv-IL-OF9" secondAttribute="top" id="fVG-SS-puK"/>
+                            <constraint firstItem="Jxf-QQ-Cah" firstAttribute="top" secondItem="Zay-Z2-eFh" secondAttribute="bottom" constant="14" id="jht-Tk-n6I"/>
+                            <constraint firstItem="dgv-IL-OF9" firstAttribute="bottom" secondItem="AZN-cS-6TD" secondAttribute="bottom" id="kZt-l5-fRc"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="Jxf-QQ-Cah" secondAttribute="bottom" constant="124" id="lMq-fO-jEI"/>
+                            <constraint firstItem="hpE-R5-T30" firstAttribute="centerX" secondItem="v7N-ig-KoI" secondAttribute="centerX" id="nG8-lb-pBl"/>
+                            <constraint firstItem="hpE-R5-T30" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="19" id="rlE-Q0-xdw"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="endButton" destination="dgv-IL-OF9" id="Qck-Nd-nX6"/>
+                        <outlet property="startButton" destination="AZN-cS-6TD" id="aZF-8e-pAT"/>
+                        <outlet property="tableView" destination="v7N-ig-KoI" id="fHS-Ah-f1O"/>
+                        <outlet property="toggleOutlet" destination="Jxf-QQ-Cah" id="47X-ee-Kh3"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="442" y="375"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="Start" width="256" height="256"/>
+        <image name="Stop" width="256" height="256"/>
+    </resources>
+</document>
