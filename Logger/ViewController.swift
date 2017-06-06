@@ -20,60 +20,60 @@ class ViewController: UIViewController,UITableViewDataSource, UITableViewDelegat
     var listArray: NSMutableArray = []
     var startTime: String!
 
-    @IBAction func start(sender: AnyObject) {
-        let alertController = UIAlertController(title: "Press OK to start log", message: "", preferredStyle: .Alert)
-        let okAction = UIAlertAction(title: "OK", style: .Default,
+    @IBAction func start(_ sender: AnyObject) {
+        let alertController = UIAlertController(title: "Press OK to start log", message: "", preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default,
             handler: {
                 action in
                 self.startData()
         })
         
         alertController.addAction(okAction)
-        presentViewController(alertController, animated: true, completion: nil)
+        present(alertController, animated: true, completion: nil)
     }
     
-    @IBAction func stop(sender: AnyObject) {
-        let alertController = UIAlertController(title: "Press OK to stop log", message: "", preferredStyle: .Alert)
-        let okAction = UIAlertAction(title: "OK", style: .Destructive,
+    @IBAction func stop(_ sender: AnyObject) {
+        let alertController = UIAlertController(title: "Press OK to stop log", message: "", preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .destructive,
             handler: {
                 action in
                 self.stopData()
         })
         
         alertController.addAction(okAction)
-        presentViewController(alertController, animated: true, completion: nil)
+        present(alertController, animated: true, completion: nil)
     }
 
-    @IBAction func toggleClear(sender: AnyObject) {
-        if !toggleOutlet.on {
+    @IBAction func toggleClear(_ sender: AnyObject) {
+        if !toggleOutlet.isOn {
             showDialog()
         }
     }
     
     func showDialog() {
-        let alertController = UIAlertController(title: "Clear log?", message: "", preferredStyle: .Alert)
-        let yesAction = UIAlertAction(title: "Yes", style: .Destructive,
+        let alertController = UIAlertController(title: "Clear log?", message: "", preferredStyle: .alert)
+        let yesAction = UIAlertAction(title: "Yes", style: .destructive,
             handler: {
                 action in
                 self.clearData()
         })
         
-        let noAction = UIAlertAction(title: "No", style: .Cancel,
+        let noAction = UIAlertAction(title: "No", style: .cancel,
             handler: {
                 action in
-                self.toggleOutlet.on = true
+                self.toggleOutlet.isOn = true
         })
         
         alertController.addAction(yesAction)
         alertController.addAction(noAction)
 
-        presentViewController(alertController, animated: true, completion: nil)
+        present(alertController, animated: true, completion: nil)
     }
     
     func getFileContents() {
         filePath = dataFilePath()
         
-        if (NSFileManager.defaultManager().fileExistsAtPath(filePath)) {
+        if (FileManager.default.fileExists(atPath: filePath)) {
             listArray = NSMutableArray(contentsOfFile: filePath)!
             tableView.reloadData()
         }
@@ -83,92 +83,92 @@ class ViewController: UIViewController,UITableViewDataSource, UITableViewDelegat
         self.getFileContents()
         
         listArray = []
-        listArray.writeToFile(filePath, atomically: false)
+        listArray.write(toFile: filePath, atomically: false)
         
         tableView.reloadData()
     }
     
     func startData() {
-        if !toggleOutlet.on {
-            toggleOutlet.on = true
+        if !toggleOutlet.isOn {
+            toggleOutlet.isOn = true
         }
         
-        startButton.enabled = false
-        endButton.enabled = true
-        toggleOutlet.enabled = false
+        startButton.isEnabled = false
+        endButton.isEnabled = true
+        toggleOutlet.isEnabled = false
         
-        let date = NSDate()
-        let formatter = NSDateFormatter()
-        formatter.dateStyle = .ShortStyle
-        formatter.timeStyle = .ShortStyle
+        let date = Date()
+        let formatter = DateFormatter()
+        formatter.dateStyle = .short
+        formatter.timeStyle = .short
         
-        startTime = formatter.stringFromDate(date)
+        startTime = formatter.string(from: date)
     }
     
     func stopData() {
-        startButton.enabled = true
-        endButton.enabled = false
-        toggleOutlet.enabled = true
+        startButton.isEnabled = true
+        endButton.isEnabled = false
+        toggleOutlet.isEnabled = true
         
         getFileContents()
         
-        let date = NSDate()
-        let formatter = NSDateFormatter()
-        formatter.dateStyle = .NoStyle
-        formatter.timeStyle = .ShortStyle
+        let date = Date()
+        let formatter = DateFormatter()
+        formatter.dateStyle = .none
+        formatter.timeStyle = .short
         
-        let itemText = startTime + " to " + formatter.stringFromDate(date)
-        listArray.addObject(itemText)
-        listArray.writeToFile(filePath, atomically: false)
+        let itemText = startTime + " to " + formatter.string(from: date)
+        listArray.add(itemText)
+        listArray.write(toFile: filePath, atomically: false)
         
         tableView.reloadData()
 
     }
     
     func dataFilePath() -> String {
-        let paths = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)
+        let paths = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.userDomainMask, true)
         let documentsDirectory = paths[0] as NSString
-        return documentsDirectory.stringByAppendingPathComponent("locations.plist") as String
+        return documentsDirectory.appendingPathComponent("locations.plist") as String
     }
     
 
-    func tableView(tableView: UITableView,
-        cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell{
+    func tableView(_ tableView: UITableView,
+        cellForRowAt indexPath: IndexPath) -> UITableViewCell{
             
-            var cell = tableView.dequeueReusableCellWithIdentifier(tableIdent) as UITableViewCell!
+            var cell = tableView.dequeueReusableCell(withIdentifier: tableIdent) as UITableViewCell!
             
             if (cell == nil) {
-                cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: tableIdent)
+                cell = UITableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: tableIdent)
             }
             
-            cell.textLabel?.text = listArray[indexPath.row] as? String
-            return cell
+            cell?.textLabel?.text = listArray[indexPath.row] as? String
+            return cell!
     }
     
     
-    func tableView(tableView: UITableView,
+    func tableView(_ tableView: UITableView,
         numberOfRowsInSection section: Int) -> Int{
             return listArray.count
     }
     
-    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
     }
     
-    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         
-        if editingStyle == UITableViewCellEditingStyle.Delete {
+        if editingStyle == UITableViewCellEditingStyle.delete {
             // Delete the row from the data source
-            listArray.removeObjectAtIndex(indexPath.row)
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Fade)
+            listArray.removeObject(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: UITableViewRowAnimation.fade)
             
-            listArray.writeToFile(filePath, atomically: false)
+            listArray.write(toFile: filePath, atomically: false)
         }
 
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        endButton.enabled = false
+        endButton.isEnabled = false
         getFileContents()
     }
 
